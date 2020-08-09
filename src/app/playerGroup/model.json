@@ -1,0 +1,39 @@
+{
+  "title": "playerGroups",
+  "entity": "playerGroup",
+  "api": {
+    "url": "http://localhost:8080/api/playerGroups"
+  },
+  "filter": [
+    "groupName"
+  ],
+  "fields": [
+    {
+      "name": "playerGroupId",
+      "label": "Id",
+      "isId": true,
+      "readonly": true,
+      "type": "number"
+    },
+    {
+      "name": "groupName",
+      "type": "string",
+      "label": "Group name"
+    },
+    {
+      "name": "totalNumberOfPlayers",
+      "type": "number",
+      "label": "Number of players"
+    },
+    {
+      "name": "hasAllMembers",
+      "type": "boolean",
+      "label": "Has all members"
+    },
+    {
+      "name": "groupOwner",
+      "type": "string",
+      "label": "Group owner"
+    }
+  ]
+}
