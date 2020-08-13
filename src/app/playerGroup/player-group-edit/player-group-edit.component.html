@@ -1,40 +1,40 @@
 <ol class="breadcrumb float-right">
   <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-  <li class="breadcrumb-item active">playerGroups</li>
+  <li class="breadcrumb-item active">Player Groups</li>
 </ol>
 <div class="card">
   <div class="header">
-    <h2 class="title">playerGroups Detail</h2>
+    <h2 class="title">Player Groups Detail</h2>
   </div>
   <div class="content">
     <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
     <form *ngIf="playerGroup" #editForm="ngForm" (ngSubmit)="save()">
-    
+
       <div class="form-group">
         <label>Id</label>
-        {{playerGroup.playerGroupId || 'n/a'}} 
+        {{playerGroup.playerGroupId || 'n/a'}}
       </div>
-    
+
       <div class="form-group">
         <label for="groupName">Group name</label>
         <input [(ngModel)]="playerGroup.groupName" id="groupName" name="groupName" class="form-control">
       </div>
-    
+
       <div class="form-group">
         <label for="totalNumberOfPlayers">Number of players</label>
         <input type="number" [(ngModel)]="playerGroup.totalNumberOfPlayers" id="totalNumberOfPlayers" name="totalNumberOfPlayers" class="form-control">
       </div>
-    
+
       <div class="form-group">
         <label for="hasAllMembers">Has all members</label>
         <input [(ngModel)]="playerGroup.hasAllMembers" id="hasAllMembers" name="hasAllMembers" class="form-control">
       </div>
-    
+
       <div class="form-group">
         <label for="groupOwner">Group owner</label>
         <input [(ngModel)]="playerGroup.groupOwner" id="groupOwner" name="groupOwner" class="form-control">
       </div>
-    
+
       <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Save</button>
       <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
     </form>

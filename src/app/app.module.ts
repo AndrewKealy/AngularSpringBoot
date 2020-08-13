@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthRoutingModule } from './auth-routing.module';
+import { PlayerGroupModule } from './playerGroup/player-group.module';
+import { UserGroupsModule } from './userGroups/user-groups.module';
+
 
 @NgModule({
   declarations: [
@@ -12,7 +15,9 @@ import { AuthRoutingModule } from './auth-routing.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    PlayerGroupModule,
+    UserGroupsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

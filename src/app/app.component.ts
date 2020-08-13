@@ -7,7 +7,7 @@ import { OktaAuthService } from '@okta/okta-angular';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'golfStarsAngular';
+  title = 'Golf Stars Angular';
   isAuthenticated: boolean;
 
   constructor(public oktaAuth: OktaAuthService) {

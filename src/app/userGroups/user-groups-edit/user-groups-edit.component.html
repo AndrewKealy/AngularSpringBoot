@@ -1,0 +1,37 @@
+<ol class="breadcrumb float-right">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">userGroups</li>
+</ol>
+<div class="card">
+  <div class="header">
+    <h2 class="title">userGroups Detail</h2>
+  </div>
+  <div class="content">
+    <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+    <form *ngIf="userGroups" #editForm="ngForm" (ngSubmit)="save()">
+    
+      <div class="form-group">
+        <label for="groupName">Group Name</label>
+        <input [(ngModel)]="userGroups.groupName" id="groupName" name="groupName" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="golfUserName">Golf Username</label>
+        <input [(ngModel)]="userGroups.golfUserName" id="golfUserName" name="golfUserName" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="isOwner">Is owner</label>
+        <input [(ngModel)]="userGroups.isOwner" id="isOwner" name="isOwner" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label>Export Id</label>
+        {{userGroups.userGroupsExportId || 'n/a'}} 
+      </div>
+    
+      <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </form>
+  </div>
+</div>

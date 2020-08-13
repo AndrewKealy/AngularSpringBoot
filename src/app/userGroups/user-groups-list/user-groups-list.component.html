@@ -1,0 +1,50 @@
+<ol class="breadcrumb float-right">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">userGroups</li>
+</ol>
+<div class="card">
+  <div class="header">
+    <h2 class="title">userGroups List</h2>
+  </div>
+  <div class="content">
+    <form #f="ngForm">
+
+      <div class="form-group">
+        <label for="golfUserName">Golf Username:</label>
+        <input [(ngModel)]="filter.golfUserName" id="golfUserName" name="golfUserName" class="form-control">
+      </div>
+
+      <button (click)="search()" [disabled]="!f?.valid" class="btn btn-primary">Search</button>
+      <a [routerLink]="['../userGroups', 'new' ]" class="btn btn-default">New</a>
+    </form>
+  </div>
+</div>
+<div class="card" *ngIf="userGroupsList.length > 0">
+  <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+  <div class="table-responsive">
+    <table class="table table-centered table-hover mb-0" id="datatable">
+      <thead>
+        <tr>
+          <th class="border-top-0" scope="col">Group Name</th>
+          <th class="border-top-0" scope="col">Golf Username</th>
+          <th class="border-top-0" scope="col">Is owner</th>
+          <th class="border-top-0" scope="col">Export Id</th>
+          <th class="border-top-0" scope="col" style="width:120px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of userGroupsList" [class.active]="item === selectedUserGroups">
+
+          <td>{{item.groupName}}</td>
+          <td>{{item.golfUserName}}</td>
+          <td>{{item.isOwner}}</td>
+          <td>{{item.userGroupsExportId}}</td>
+          <td style="white-space: nowrap">
+            <a [routerLink]="['../userGroups', item.userGroupsExportId ]" class="btn btn-secondary">Edit</a>&nbsp;
+            <button (click)="delete(item)" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
