@@ -1,10 +1,10 @@
 <ol class="breadcrumb float-right">
   <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-  <li class="breadcrumb-item active">userGroups</li>
+  <li class="breadcrumb-item active">userGroupses</li>
 </ol>
 <div class="card">
   <div class="header">
-    <h2 class="title">userGroups List</h2>
+    <h2 class="title">userGroupses List</h2>
   </div>
   <div class="content">
     <form #f="ngForm">
@@ -15,7 +15,7 @@
       </div>
 
       <button (click)="search()" [disabled]="!f?.valid" class="btn btn-primary">Search</button>
-      <a [routerLink]="['../userGroups', 'new' ]" class="btn btn-default">New</a>
+      <a [routerLink]="['../userGroupses', 'new' ]" class="btn btn-default">New</a>
     </form>
   </div>
 </div>
@@ -25,22 +25,26 @@
     <table class="table table-centered table-hover mb-0" id="datatable">
       <thead>
         <tr>
+          <th class="border-top-0" scope="col">Id</th>
+          <th class="border-top-0" scope="col">Group Id</th>
+          <th class="border-top-0" scope="col">Player Id</th>
           <th class="border-top-0" scope="col">Group Name</th>
           <th class="border-top-0" scope="col">Golf Username</th>
           <th class="border-top-0" scope="col">Is owner</th>
-          <th class="border-top-0" scope="col">Export Id</th>
           <th class="border-top-0" scope="col" style="width:120px"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of userGroupsList" [class.active]="item === selectedUserGroups">
 
+          <td>{{item.userGroupsPrimaryKey}}</td>
+          <td>{{item.userGroupsId.playerGroupIdEnrolled}}</td>
+          <td>{{item.userGroupsId.golfUserIdEnrolled}}</td>
           <td>{{item.groupName}}</td>
           <td>{{item.golfUserName}}</td>
           <td>{{item.isOwner}}</td>
-          <td>{{item.userGroupsExportId}}</td>
           <td style="white-space: nowrap">
-            <a [routerLink]="['../userGroups', item.userGroupsExportId ]" class="btn btn-secondary">Edit</a>&nbsp;
+            <a [routerLink]="['../userGroupses', item.userGroupsPrimaryKey ]" class="btn btn-secondary">Edit</a>&nbsp;
             <button (click)="delete(item)" class="btn btn-danger">Delete</button>
           </td>
         </tr>

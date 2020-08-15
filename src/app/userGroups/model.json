@@ -1,13 +1,37 @@
 {
-  "title": "userGroups",
+  "title": "userGroupses",
   "entity": "userGroups",
   "api": {
-    "url": "http://localhost:8080/userGroups"
+    "url": "http://localhost:8080/api/userGroupses"
   },
   "filter": [
     "golfUserName"
   ],
   "fields": [
+    { "name" : "userGroupsPrimaryKey",
+      "label" : "Id",
+      "isId" : true,
+      "readonly" : true,
+      "type" : "number"
+
+    },
+    {
+      "name": "userGroupsId",
+      "label": "CompositeId",
+      "type": "UserGroupsId",
+      "properties" : {
+        "golfUserIdEnrolled" : {
+          "name" : "golfUserIdEnrolled",
+          "type" : "number",
+          "label" : "Golf User Id"
+        },
+        "playerGroupIdEnrolled" : {
+          "name" : "playerGroupIdEnrolled",
+          "type" : "number",
+          "label" : "Player Group Id"
+        }
+      }
+    },
     {
       "name": "groupName",
       "type": "string",
@@ -22,13 +46,6 @@
       "name": "isOwner",
       "type": "boolean",
       "label": "Is owner"
-    },
-    {
-      "name" : "userGroupsExportId",
-      "type" : "number",
-      "label" : "Export Id",
-      "isId": true,
-      "readonly": true
     }
   ]
 }

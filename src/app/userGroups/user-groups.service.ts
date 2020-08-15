@@ -1,4 +1,5 @@
 import { UserGroups } from './user-groups';
+import { UserGroupsId} from './user-groups-id';
 import { UserGroupsFilter } from './user-groups-filter';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,14 +10,14 @@ const headers = new HttpHeaders().set('Accept', 'application/json');
 @Injectable()
 export class UserGroupsService {
   userGroupsList: UserGroups[] = [];
-  api = 'http://localhost:8080/userGroups';
+  api = 'http://localhost:8080/api/userGroupses';
 
   constructor(private http: HttpClient) {
   }
 
   findById(id: string): Observable<UserGroups> {
     const url = `${this.api}/${id}`;
-    const params = { userGroupsExportId: id };
+    const params = { userGroupsPrimaryKey: id };
     return this.http.get<UserGroups>(url, {params, headers});
   }
 
@@ -34,16 +35,17 @@ export class UserGroupsService {
     const params = {
       golfUserName: filter.golfUserName,
     };
-    const userGroups = 'http://localhost:8080/user/userGroups';
-    return this.http.get<UserGroups[]>(userGroups, {params, headers});
+    const userGroupses = 'http://localhost:8080/user/userGroupses';
+    return this.http.get<UserGroups[]>(userGroupses, {params, headers});
   }
 
   save(entity: UserGroups): Observable<UserGroups> {
+    console.log(entity);
     let params = new HttpParams();
     let url = '';
-    if (entity.userGroupsExportId) {
-      url = `${this.api}/${entity.userGroupsExportId.toString()}`;
-      params = new HttpParams().set('ID', entity.userGroupsExportId.toString());
+    if (entity.userGroupsPrimaryKey) {
+      url = `${this.api}/${entity.userGroupsPrimaryKey.toString()}`;
+      params = new HttpParams().set('ID', entity.userGroupsPrimaryKey.toString());
       return this.http.put<UserGroups>(url, entity, {headers, params});
     } else {
       url = `${this.api}`;
@@ -54,9 +56,9 @@ export class UserGroupsService {
   delete(entity: UserGroups): Observable<UserGroups> {
     let params = new HttpParams();
     let url = '';
-    if (entity.userGroupsExportId) {
-      url = `${this.api}/${entity.userGroupsExportId.toString()}`;
-      params = new HttpParams().set('ID', entity.userGroupsExportId.toString());
+    if (entity.userGroupsPrimaryKey) {
+      url = `${this.api}/${entity.userGroupsPrimaryKey.toString()}`;
+      params = new HttpParams().set('ID', entity.userGroupsPrimaryKey.toString());
       return this.http.delete<UserGroups>(url, {headers, params});
     }
     return null;

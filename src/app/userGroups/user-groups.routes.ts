@@ -4,11 +4,11 @@ import { UserGroupsEditComponent } from './user-groups-edit/user-groups-edit.com
 
 export const USERGROUPS_ROUTES: Routes = [
   {
-    path: 'userGroups',
+    path: 'userGroupses',
     component: UserGroupsListComponent
   },
   {
-    path: 'userGroups/:id',
+    path: 'userGroupses/:id',
     component: UserGroupsEditComponent
   }
 ];

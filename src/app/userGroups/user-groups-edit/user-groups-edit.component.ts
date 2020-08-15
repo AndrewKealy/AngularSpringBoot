@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { UserGroupsService } from '../user-groups.service';
 import { UserGroups } from '../user-groups';
+import { UserGroupsId} from '../user-groups-id';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -15,6 +16,8 @@ export class UserGroupsEditComponent implements OnInit {
   id: string;
   userGroups: UserGroups;
   feedback: any = {};
+  private userGroupsId: UserGroupsId;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -29,7 +32,8 @@ export class UserGroupsEditComponent implements OnInit {
       .pipe(
         map(p => p.id),
         switchMap(id => {
-          if (id === 'new') { return of(new UserGroups()); }
+          if (id === 'new') { this.userGroupsId = new UserGroupsId();
+                              return of(new UserGroups(this.userGroupsId)); }
           return this.userGroupsService.findById(id);
         })
       )
@@ -43,13 +47,15 @@ export class UserGroupsEditComponent implements OnInit {
       );
   }
 
+
   save() {
+    console.log('yyy' + this .userGroups.isOwner);
     this.userGroupsService.save(this.userGroups).subscribe(
       userGroups => {
         this.userGroups = userGroups;
         this.feedback = {type: 'success', message: 'Save was successful!'};
         setTimeout(() => {
-          this.router.navigate(['/userGroups']);
+          this.router.navigate(['/userGroupses']);
         }, 1000);
       },
       err => {
@@ -59,6 +65,6 @@ export class UserGroupsEditComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/userGroups']);
+    this.router.navigate(['/userGroupses']);
   }
 }
