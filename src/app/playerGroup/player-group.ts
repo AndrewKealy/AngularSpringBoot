@@ -4,4 +4,5 @@ export class PlayerGroup {
   totalNumberOfPlayers: number;
   hasAllMembers: boolean;
   groupOwner: string;
+  isPrivate: boolean;
 }

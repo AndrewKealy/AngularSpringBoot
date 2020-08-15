@@ -29,7 +29,7 @@ export class PlayerGroupEditComponent implements OnInit {
       .pipe(
         map(p => p.id),
         switchMap(id => {
-          if (id === 'new') { return of(new PlayerGroup()); }
+          if (id === 'new') {return of(new PlayerGroup()); }
           return this.playerGroupService.findById(id);
         })
       )

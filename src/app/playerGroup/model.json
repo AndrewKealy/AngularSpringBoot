@@ -18,12 +18,12 @@
     {
       "name": "groupName",
       "type": "string",
-      "label": "Group name"
+      "label": "GroupName"
     },
     {
       "name": "totalNumberOfPlayers",
       "type": "number",
-      "label": "Number of players"
+      "label": "NumberOfPlayers"
     },
     {
       "name": "hasAllMembers",
@@ -33,7 +33,12 @@
     {
       "name": "groupOwner",
       "type": "string",
-      "label": "Group owner"
+      "label": "GroupOwner"
+    },
+    {
+      "name": "isPrivate",
+      "type": "boolean",
+      "label": "IsPrivate"
     }
   ]
 }

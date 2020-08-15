@@ -1,5 +1,4 @@
 import { UserGroups } from './user-groups';
-import { UserGroupsId} from './user-groups-id';
 import { UserGroupsFilter } from './user-groups-filter';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
