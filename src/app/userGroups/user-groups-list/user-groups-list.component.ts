@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserGroupsFilter } from '../user-groups-filter';
 import { UserGroupsService } from '../user-groups.service';
 import { UserGroups } from '../user-groups';
+import { SharedService } from '../../shared/shared.service';
+import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-user-groups',
@@ -12,16 +14,23 @@ export class UserGroupsListComponent implements OnInit {
   filter = new UserGroupsFilter();
   selectedUserGroups: UserGroups;
   feedback: any = {};
-
+  playerGroupId: string;
+  userName: string;
   get userGroupsList(): UserGroups[] {
     return this.userGroupsService.userGroupsList;
   }
 
-  constructor(private userGroupsService: UserGroupsService) {
+  constructor(private userGroupsService: UserGroupsService, private sharedService: SharedService, private oktaAuthService: OktaAuthService) {
   }
 
-  ngOnInit() {
-    this.search();
+  async ngOnInit() {
+   // new DataManager(this.search).executeLocal(new Query().where('userGroupsId.playerGroupIdEnrolled', 'equal', 1));
+  //  this.search();
+    const userClaims = await this.oktaAuthService.getUser();
+    this.userName = userClaims.preferred_username;
+    this.sharedService.sharedPlayerGroupId.subscribe((playerGroupId => this.playerGroupId = playerGroupId));
+    this.filter.playerGroupIdEnrolled = this.playerGroupId;
+    this.userGroupsService.load(this.filter);
   }
 
   search(): void {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
+import { SharedService } from './shared/shared.service';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,12 @@ import { OktaAuthService } from '@okta/okta-angular';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Golf Stars Angular';
+  title = 'Golf Stars';
   isAuthenticated: boolean;
+  isCollapsed = true;
+  groupName: string;
 
-  constructor(public oktaAuth: OktaAuthService) {
+  constructor(public oktaAuth: OktaAuthService, private sharedService: SharedService) {
   }
 
   async ngOnInit() {
@@ -18,5 +21,12 @@ export class AppComponent implements OnInit {
     this.oktaAuth.$authenticationState.subscribe(
       (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
     );
+    const userClaims = await this.oktaAuth.getUser();
+    const userName = userClaims.name;
+    this.sharedService.sharedGroupName.subscribe(groupName => this.groupName = groupName);
+  }
+
+  newGroupName(groupName: string) {
+    this.sharedService.nextGroupName(groupName);
   }
 }

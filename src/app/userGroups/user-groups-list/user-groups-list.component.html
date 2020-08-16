@@ -3,20 +3,13 @@
   <li class="breadcrumb-item active">userGroupses</li>
 </ol>
 <div class="card">
-  <div class="header">
-    <h2 class="title">userGroupses List</h2>
-  </div>
+
   <div class="content">
-    <form #f="ngForm">
-
-      <div class="form-group">
-        <label for="golfUserName">Golf Username:</label>
-        <input [(ngModel)]="filter.golfUserName" id="golfUserName" name="golfUserName" class="form-control">
-      </div>
-
-      <button (click)="search()" [disabled]="!f?.valid" class="btn btn-primary">Search</button>
-      <a [routerLink]="['../userGroupses', 'new' ]" class="btn btn-default">New</a>
-    </form>
+      <button [routerLink]="['/playerGroups']" class="btn btn-primary">Back to groups</button>
+      <button [routerLink]="['../userGroupses', 'new' ]" class="btn btn-secondary">New</button>
+  </div>
+  <div class="header m-3">
+    <h2 class="title" *ngIf="userGroupsList.length > 0" >{{userGroupsList[0].groupName}}</h2>
   </div>
 </div>
 <div class="card" *ngIf="userGroupsList.length > 0">
@@ -25,10 +18,7 @@
     <table class="table table-centered table-hover mb-0" id="datatable">
       <thead>
         <tr>
-          <th class="border-top-0" scope="col">Id</th>
-          <th class="border-top-0" scope="col">Group Id</th>
-          <th class="border-top-0" scope="col">Player Id</th>
-          <th class="border-top-0" scope="col">Group Name</th>
+
           <th class="border-top-0" scope="col">Golf Username</th>
           <th class="border-top-0" scope="col">Is owner</th>
           <th class="border-top-0" scope="col" style="width:120px"></th>
@@ -36,16 +26,15 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of userGroupsList" [class.active]="item === selectedUserGroups">
-
-          <td>{{item.userGroupsPrimaryKey}}</td>
-          <td>{{item.userGroupsId.playerGroupIdEnrolled}}</td>
-          <td>{{item.userGroupsId.golfUserIdEnrolled}}</td>
-          <td>{{item.groupName}}</td>
           <td>{{item.golfUserName}}</td>
-          <td>{{item.isOwner}}</td>
-          <td style="white-space: nowrap">
-            <a [routerLink]="['../userGroupses', item.userGroupsPrimaryKey ]" class="btn btn-secondary">Edit</a>&nbsp;
-            <button (click)="delete(item)" class="btn btn-danger">Delete</button>
+          <div *ngIf="item.isOwner === true; else none" >
+            <td>&#10003;</td>
+          </div>
+          <ng-template #none >
+            <td>&#10007;</td>
+          </ng-template >
+          <td style="white-space: nowrap" *ngIf="item.isOwner === true && item.golfUserName === userName;">
+            <button (click)="delete(item)" class="btn btn-danger">Remove Player</button>
           </td>
         </tr>
       </tbody>

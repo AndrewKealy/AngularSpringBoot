@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
+
 const headers = new HttpHeaders().set('Accept', 'application/json');
 
 @Injectable()
@@ -19,7 +20,18 @@ export class UserGroupsService {
     const params = { userGroupsPrimaryKey: id };
     return this.http.get<UserGroups>(url, {params, headers});
   }
-
+/*
+  findAllMembersById(id: string): Observable<UserGroups[]> {
+    console.log('groupId:' + id);
+    const newIdParam = '?id=' + id ;
+    const userGroupsesByGroupId = 'http://localhost:8080/user/userGroupsesByGroupId' + newIdParam;
+   // const url = `${userGroupsesByGroupId}/${id}`;
+   // const params = { id };
+    console.log('groupId:' + userGroupsesByGroupId);
+    console.log(this.http.get<UserGroups[]>(userGroupsesByGroupId));
+    return this.http.get<UserGroups[]>(userGroupsesByGroupId);
+  }
+*/
   load(filter: UserGroupsFilter): void {
     this.find(filter).subscribe(result => {
         this.userGroupsList = result;
@@ -29,11 +41,14 @@ export class UserGroupsService {
       }
     );
   }
-
+  /*
+  const userGroupses = 'http://localhost:8080/user/userGroupsesByGroupId/${id}';
+  const params = {id};
+  return this.http.get<UserGroups[]>(userGroupses, {params, headers});
+  */
   find(filter: UserGroupsFilter): Observable<UserGroups[]> {
     const params = {
-      golfUserName: filter.golfUserName,
-    };
+      playerGroupIdEnrolled: filter.playerGroupIdEnrolled};
     const userGroupses = 'http://localhost:8080/user/userGroupses';
     return this.http.get<UserGroups[]>(userGroupses, {params, headers});
   }

@@ -1,45 +1,40 @@
-<ol class="breadcrumb float-right">
+<ol class="breadcrumb">
   <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
   <li class="breadcrumb-item active">Player Groups</li>
 </ol>
 <div class="card">
-  <div class="header">
-    <h2 class="title">Player Groups Detail</h2>
-  </div>
-  <div class="content">
-    <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+  <div class="card-body">
+    <h2 class="card-title">Player Group Detail</h2>
+    <div class="card-text">
+      <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}
+      </div>
     <form *ngIf="playerGroup" #editForm="ngForm" (ngSubmit)="save()">
 
       <div class="form-group">
-        <label>Id</label>
-        {{playerGroup.playerGroupId || 'n/a'}}
-      </div>
-
-      <div class="form-group">
         <label for="groupName">Group name</label>
-        <input [(ngModel)]="playerGroup.groupName" id="groupName" name="groupName" class="form-control">
+        <input [(ngModel)]="playerGroup.groupName" id="groupName" name="groupName" class="form-control" required #name="ngModel" [ngClass]="{'is-invalid': name.touched && name.invalid, 'is-valid': name.touched && name.valid}">
+        <div [hidden]="name.valid" style="display: block" class="invalid-feedback">
+          Title is required
+        </div>
       </div>
 
       <div class="form-group">
-        <label for="totalNumberOfPlayers">Number of players</label>
-        <input type="number" [(ngModel)]="playerGroup.totalNumberOfPlayers" id="totalNumberOfPlayers" name="totalNumberOfPlayers" class="form-control">
-      </div>
+        <label for="totalNumberOfPlayers">Group size</label>
+        <select class="form-control" type="number" [(ngModel)]="playerGroup.totalNumberOfPlayers" id="totalNumberOfPlayers" name="totalNumberOfPlayers">
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="4">Four</option>
+          <option value="6">Six</option>
+        </select>
 
-      <div class="form-group">
-        <label for="hasAllMembers">Has all members</label>
-        <input [(ngModel)]="playerGroup.hasAllMembers" id="hasAllMembers" name="hasAllMembers" class="form-control">
       </div>
-
-      <div class="form-group">
-        <label for="groupOwner">Group owner</label>
-        <input [(ngModel)]="playerGroup.groupOwner" id="groupOwner" name="groupOwner" class="form-control">
-      </div>
-      <div class="form-group">
+      <div class="form-group form-inline mr-2">
         <label for="isPrivate">Is Private</label>
-        <input type="checkbox" [(ngModel)]="playerGroup.isPrivate" id="isPrivate" name="isPrvate" class="form-control">
+        <input type="checkbox" [(ngModel)]="playerGroup.isPrivate" id="isPrivate" name="isPrivate" class="form-control">
       </div>
       <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Save</button>
-      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+      <button type="button" class="btn btn-secondary ml-2" (click)="cancel()">Cancel</button>
     </form>
   </div>
+</div>
 </div>

@@ -1,33 +1,21 @@
-<ol class="breadcrumb float-right">
+<ol class="breadcrumb">
   <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-  <li class="breadcrumb-item active">playerGroups</li>
+  <li class="breadcrumb-item active">Player Groups</li>
 </ol>
 <div class="card">
-  <div class="header">
-    <h2 class="title">playerGroups List</h2>
-  </div>
-  <div class="content">
-    <form #f="ngForm">
+  <div class="card-body">
+    <h2 class="card-title">Your groups</h2>
 
-      <div class="form-group">
-        <label for="groupName">Group name:</label>
-        <input [(ngModel)]="filter.groupName" id="groupName" name="groupName" class="form-control">
-      </div>
 
-      <button (click)="search()" [disabled]="!f?.valid" class="btn btn-primary">Search</button>
-      <a [routerLink]="['../playerGroups', 'new' ]" class="btn btn-default">New</a>
-    </form>
-  </div>
-</div>
-<div class="card" *ngIf="playerGroupList.length > 0">
-  <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+<div *ngIf="playerGroupList.length > 0">
+  <div *ngIf="feedback" class="alert alert-{{feedback.type} m-2}">{{ feedback.message }}</div>
   <div class="table-responsive">
     <table class="table table-centered table-hover mb-0" id="datatable">
       <thead>
         <tr>
 
           <th class="border-top-0" scope="col">Group name</th>
-          <th class="border-top-0" scope="col">Number of players</th>
+          <th class="border-top-0" scope="col">Max number of players</th>
           <th class="border-top-0" scope="col">Has all members</th>
           <th class="border-top-0" scope="col">Group owner</th>
           <th class="border-top-0" scope="col">Is private</th>
@@ -36,14 +24,17 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of playerGroupList" [class.active]="item === selectedPlayerGroup">
-
-
-          <td><a [routerLink]="['../playerGroups', item.playerGroupId ]">{{item.groupName}}</a></td>
+          <td><button (click)="newPlayerGroupId(item.playerGroupId.toString())" [routerLink]="['/userGroupses']" class="btn btn-info"  >{{item.groupName}}</button></td>
           <td>{{item.totalNumberOfPlayers}}</td>
           <td>{{item.hasAllMembers}}</td>
           <td>{{item.groupOwner}}</td>
-          <td>{{item.isPrivate}}</td>
-          <td style="white-space: nowrap">
+          <div *ngIf="item.isPrivate === true; else none" >
+            <td>&#10003;</td>
+          </div>
+          <ng-template #none >
+            <td>&#10007;</td>
+          </ng-template >
+          <td  *ngIf="item.groupOwner === userName;" style="white-space: nowrap">
             <a [routerLink]="['../playerGroups', item.playerGroupId ]" class="btn btn-secondary">Edit</a>&nbsp;
             <button (click)="delete(item)" class="btn btn-danger">Delete</button>
           </td>
@@ -51,4 +42,12 @@
       </tbody>
     </table>
   </div>
+</div>
+  </div>
+
+</div>
+<div class="card-text">
+  <form #f="ngForm" class="form-inline m-3">
+    <a [routerLink]="['../playerGroups', 'new' ]" class="btn btn-outline-primary">Create new group</a>
+  </form>
 </div>

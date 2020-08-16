@@ -1,2 +1,10 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
+label {
+  margin-right: 2em;
+}
+input, select {
+  max-width : 20em;
+}
+
+

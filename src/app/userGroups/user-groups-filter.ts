@@ -1,3 +1,3 @@
 export class UserGroupsFilter {
-    golfUserName = '';
+  playerGroupIdEnrolled = '';
 }

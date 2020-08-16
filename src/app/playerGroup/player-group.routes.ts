@@ -10,5 +10,10 @@ export const PLAYERGROUP_ROUTES: Routes = [
   {
     path: 'playerGroups/:id',
     component: PlayerGroupEditComponent
+  },
+  {
+    path: 'playerGroupsAll',
+    component: PlayerGroupListComponent
   }
+
 ];

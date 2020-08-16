@@ -6,6 +6,7 @@ import { PlayerGroup } from '../player-group';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
+
 @Component({
   selector: 'app-player-group-edit',
   templateUrl: './player-group-edit.component.html'
@@ -15,7 +16,6 @@ export class PlayerGroupEditComponent implements OnInit {
   id: string;
   playerGroup: PlayerGroup;
   feedback: any = {};
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -23,7 +23,7 @@ export class PlayerGroupEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this
+  this
       .route
       .params
       .pipe(
