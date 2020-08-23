@@ -1,0 +1,86 @@
+<ol class="breadcrumb float-right">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">tournamentGroups</li>
+</ol>
+<div class="card">
+  <div class="header">
+    <h2 class="title">Tournament Players</h2>
+  </div>
+  <div class="content">
+      <button (click)="newPlayerGroupIdAndTotalMembers(this.playerGroupIdForTournamentGroup.toString(), this.totalNumberOfPlayers)" [routerLink]="['/userGroupses']" class="btn btn-primary m-2" >Back to group</button>
+    <div class="content" *ngIf="arePicksAvailableToAnyone === false">
+      <button (click)="playGame()" class ="btn btn-dark m-2">Play Game</button>
+    </div>
+  </div>
+  <div class="card" *ngIf="arePicksAvailableToUser === false">
+    <p>You have made all selections for this group.</p>
+    <p>When all players have made their selection, the tournament can play</p>
+  </div>
+</div>
+<div class="card" *ngIf="revealPositionAndScore">
+  <table class="table table-centered table-hover mb-0" id="winnerdata">
+    <thead>
+    <tr>
+      <th class="border-top-0" scope="col">Player Name</th>
+      <th class="border-top-0" scope="col">Total score</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of this.finalPlayersAndScore | keyvalue">
+      <td>{{item.key}}</td>
+      <td>{{item.value}}</td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+
+<div class="card" *ngIf="tournamentGroupList.length > 0">
+  <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+  <div class="table-responsive">
+    <table class="table table-centered table-hover mb-0" id="datatable">
+      <thead>
+        <tr>
+          <th class="border-top-0" scope="col">First Name</th>
+          <th class="border-top-0" scope="col">Family Name</th>
+          <th class="border-top-0" scope="col">Nationality</th>
+          <th class="border-top-0" scope="col">Odds</th>
+          <th *ngIf="revealPositionAndScore" class="border-top-0" scope="col">Position</th>
+          <th *ngIf="revealPositionAndScore" class="border-top-0" scope="col">Score</th>
+          <th class="border-top-0" scope="col">Is picked</th>
+          <th class="border-top-0" scope="col">Picked By</th>
+          <th class="border-top-0" scope="col" style="width:120px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tournamentGroupList" [class.active]="item === selectedTournamentGroup">
+          <td>{{item.golferFirstName}}</td>
+          <td>{{item.golferSecondName}}</td>
+          <td>{{item.golferNationality}}</td>
+          <td>{{item.oddsToOne}}</td>
+          <td *ngIf="revealPositionAndScore">{{item.tournamentPosition}}</td>
+          <td *ngIf="revealPositionAndScore">{{item.finalScore}}</td>
+          <div *ngIf="item.isPicked === true; else none" >
+            <td>&#10003;</td>
+          </div>
+          <ng-template #none >
+            <td>&#10007;</td>
+          </ng-template >
+          <td>{{item.pickedByUsername}}</td>
+          <div *ngIf="item.isPicked === false && this.arePicksAvailableToUser; else noPick" >
+            <td style="white-space: nowrap">
+              <a [routerLink]="['../tournamentGroups', item.tournamentGroupPrimaryKey ]" class="btn btn-secondary">Pick player</a>&nbsp;
+            </td>
+
+          </div>
+          <ng-template #noPick>
+            <td style="white-space: nowrap"></td>
+          </ng-template>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="content">
+  <button (click)="newPlayerGroupIdAndTotalMembers(this.playerGroupIdForTournamentGroup.toString(), this.totalNumberOfPlayers)" [routerLink]="['/userGroupses']" class="btn btn-primary m-2" >Back to group</button>
+
+</div>

@@ -1,0 +1,43 @@
+<ol class="breadcrumb float-right">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">tournamentGroups</li>
+</ol>
+<div class="card">
+  <div class="header">
+    <h2 class="title">Pick golfer</h2>
+  </div>
+  <div class="content">
+    <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+    <form *ngIf="tournamentGroup" #editForm="ngForm" (ngSubmit)="save()">
+
+      <div class="table-responsive">
+        <table class="table table-centered table-hover mb-0" id="datatable">
+          <thead>
+          <tr>
+            <th class="border-top-0" scope="col">GolferFirstName</th>
+            <th class="border-top-0" scope="col">GolferSecondName</th>
+            <th class="border-top-0" scope="col">Nationality</th>
+            <th class="border-top-0" scope="col">Odds</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{tournamentGroup.golferFirstName}}</td>
+            <td>{{tournamentGroup.golferSecondName}}</td>
+            <td>{{tournamentGroup.golferNationality}}</td>
+            <td>{{tournamentGroup.oddsToOne}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="form-group form-inline mr-2">
+        <label for="isPicked">Select</label>
+        <input type="checkbox" [(ngModel)]="tournamentGroup.isPicked" id="isPicked" name="isPicked" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary mr-2" [disabled]="!editForm.form.valid">Save choice</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </form>
+  </div>
+</div>

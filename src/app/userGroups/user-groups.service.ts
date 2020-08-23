@@ -1,8 +1,9 @@
 import { UserGroups } from './user-groups';
 import { UserGroupsFilter } from './user-groups-filter';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+
 
 
 const headers = new HttpHeaders().set('Accept', 'application/json');
@@ -54,7 +55,6 @@ export class UserGroupsService {
   }
 
   save(entity: UserGroups): Observable<UserGroups> {
-    console.log(entity);
     let params = new HttpParams();
     let url = '';
     if (entity.userGroupsPrimaryKey) {

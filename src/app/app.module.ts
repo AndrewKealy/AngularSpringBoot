@@ -7,6 +7,11 @@ import { AppComponent } from './app.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { PlayerGroupModule } from './playerGroup/player-group.module';
 import { UserGroupsModule } from './userGroups/user-groups.module';
+import { GolfUserModule } from './golfUser/golf-user.module';
+import { TournamentGroupModule } from './tournamentGroup/tournament-group.module';
+
+
+
 
 
 
@@ -20,7 +25,9 @@ import { UserGroupsModule } from './userGroups/user-groups.module';
     AuthRoutingModule,
     PlayerGroupModule,
     UserGroupsModule,
-    NgbModule
+    NgbModule,
+    GolfUserModule,
+    TournamentGroupModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

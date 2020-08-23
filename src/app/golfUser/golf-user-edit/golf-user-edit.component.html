@@ -1,0 +1,37 @@
+<ol class="breadcrumb float-right">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">golfUsers</li>
+</ol>
+<div class="card">
+  <div class="header">
+    <h2 class="title">golfUsers Detail</h2>
+  </div>
+  <div class="content">
+    <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+    <form *ngIf="golfUser" #editForm="ngForm" (ngSubmit)="save()">
+    
+      <div class="form-group">
+        <label>Id</label>
+        {{golfUser.golfUserId || 'n/a'}} 
+      </div>
+    
+      <div class="form-group">
+        <label for="userName">UserName</label>
+        <input [(ngModel)]="golfUser.userName" id="userName" name="userName" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="firstName">string</label>
+        <input [(ngModel)]="golfUser.firstName" id="firstName" name="firstName" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="familyName">Has all members</label>
+        <input [(ngModel)]="golfUser.familyName" id="familyName" name="familyName" class="form-control">
+      </div>
+    
+      <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </form>
+  </div>
+</div>

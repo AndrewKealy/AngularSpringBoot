@@ -36,7 +36,6 @@ export class PlayerGroupService {
     const params = {
      groupName: filter.groupName,
     };
-    console.log(filter.groupName);
     let usersPlayerGroups = '';
     if (filter.groupName === 'all') {
       usersPlayerGroups = 'http://localhost:8080/playerGroups';

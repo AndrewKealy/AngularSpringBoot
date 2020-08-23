@@ -16,21 +16,28 @@ export class UserGroupsListComponent implements OnInit {
   feedback: any = {};
   playerGroupId: string;
   userName: string;
+  totalNumberOfPlayers: number;
+  hasAllMembers: boolean;
+  groupId: number;
+
   get userGroupsList(): UserGroups[] {
     return this.userGroupsService.userGroupsList;
   }
 
-  constructor(private userGroupsService: UserGroupsService, private sharedService: SharedService, private oktaAuthService: OktaAuthService) {
+  constructor(private userGroupsService: UserGroupsService,
+              private sharedService: SharedService,
+              private oktaAuthService: OktaAuthService) {
   }
 
   async ngOnInit() {
-   // new DataManager(this.search).executeLocal(new Query().where('userGroupsId.playerGroupIdEnrolled', 'equal', 1));
-  //  this.search();
     const userClaims = await this.oktaAuthService.getUser();
     this.userName = userClaims.preferred_username;
     this.sharedService.sharedPlayerGroupId.subscribe((playerGroupId => this.playerGroupId = playerGroupId));
+    this.sharedService.sharedTotalNumberOfPlayers.subscribe(totalNumberOfPlayers => this.totalNumberOfPlayers = totalNumberOfPlayers);
+    this.sharedService.sharedHasAllMembers.subscribe(hasAllMembers => this.hasAllMembers = hasAllMembers);
+    this.sharedService.sharedGroupId.subscribe(groupId => this.groupId = groupId);
     this.filter.playerGroupIdEnrolled = this.playerGroupId;
-    this.userGroupsService.load(this.filter);
+    this.search();
   }
 
   search(): void {
@@ -54,5 +61,15 @@ export class UserGroupsListComponent implements OnInit {
         }
       );
     }
+  }
+  newUserGroup(groupId: number) {
+    this.sharedService.sharedGroupId.next((groupId));
+  }
+
+  newTournamentGroup(playerGroupIdForTournamentGroup) {
+    this.sharedService.nextPlayerGroupIdForTournamentGroup(playerGroupIdForTournamentGroup);
+    this.sharedService.nextPlayerGroupId(this.playerGroupId);
+    this.sharedService.nextTotalNumberOfPlayers(this.totalNumberOfPlayers);
+
   }
 }

@@ -4,10 +4,10 @@
 </ol>
 <div class="card">
 
-  <div class="content">
-      <button [routerLink]="['/playerGroups']" class="btn btn-primary">Back to groups</button>
-      <button [routerLink]="['../userGroupses', 'new' ]" class="btn btn-secondary">New</button>
-  </div>
+  <div class="content m-3" >
+      <button  (click)="newTournamentGroup(userGroupsList[0].userGroupsId.playerGroupIdEnrolled)" [routerLink]="['../tournamentGroups']" class="btn btn-secondary">View Tournament</button>
+    </div>
+
   <div class="header m-3">
     <h2 class="title" *ngIf="userGroupsList.length > 0" >{{userGroupsList[0].groupName}}</h2>
   </div>
@@ -33,11 +33,17 @@
           <ng-template #none >
             <td>&#10007;</td>
           </ng-template >
-          <td style="white-space: nowrap" *ngIf="item.isOwner === true && item.golfUserName === userName;">
-            <button (click)="delete(item)" class="btn btn-danger">Remove Player</button>
-          </td>
         </tr>
       </tbody>
     </table>
   </div>
+</div>
+<div class="content m-3"  *ngIf="userGroupsList.length < totalNumberOfPlayers; else groupFull">
+  <button (click)="newUserGroup(userGroupsList[0].userGroupsId.playerGroupIdEnrolled)" [routerLink]="['../userGroupses', 'new' ]" class="btn btn-secondary">Join Group</button>
+</div>
+<ng-template #groupFull>
+  <p>This group is fully subscribed</p>
+</ng-template>
+<div class="content m-3" >
+  <button [routerLink]="['/playerGroups']" class="btn btn-primary" >Back to groups</button>
 </div>

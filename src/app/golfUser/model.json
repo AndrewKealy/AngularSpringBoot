@@ -1,0 +1,34 @@
+{
+  "title": "golfUsers",
+  "entity": "golfUser",
+  "api": {
+    "url": "http://localhost:8080/api/golfUsers"
+  },
+  "filter": [
+    "userName"
+  ],
+  "fields": [
+    {
+      "name": "golfUserId",
+      "label": "Id",
+      "isId": true,
+      "readonly": true,
+      "type": "number"
+    },
+    {
+      "name": "userName",
+      "type": "string",
+      "label": "UserName"
+    },
+    {
+      "name": "firstName",
+      "type": "string",
+      "label": "string"
+    },
+    {
+      "name": "familyName",
+      "type": "string",
+      "label": "Has all members"
+    }
+  ]
+}

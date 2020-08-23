@@ -1,0 +1,96 @@
+{
+  "title": "tournamentGroups",
+  "entity": "tournamentGroup",
+  "api": {
+    "url": "http://localhost:8080/api/tournamentGroups"
+  },
+  "filter": [
+    "playerGroupFilter"
+  ],
+  "fields": [
+    { "name" : "tournamentGroupPrimaryKey",
+      "label" : "Id",
+      "isId" : true,
+      "readonly" : true,
+      "type" : "number"
+
+    },
+    {
+      "name": "tournamentGroupId",
+      "label": "CompositeId",
+      "type": "TournamentGroupId",
+      "properties" : {
+        "golfUserIdEnrolled" : {
+          "name" : "tournamentEnrollmentForeignId",
+          "type" : "number",
+          "label" : "TournamentId"
+        },
+        "playerGroupIdEnrolled" : {
+          "name" : "playerGroupForeignId",
+          "type" : "number",
+          "label" : "playerGroupId"
+        }
+      }
+    },
+    {
+      "name": "playerGroupFilter",
+      "type": "number",
+      "label": "playerGroupFilter"
+    },
+    {
+      "name": "golferId",
+      "type": "number",
+      "label": "GolferId"
+    },
+    {
+      "name": "golferFirstName",
+      "type": "string",
+      "label": "GolferFirstName"
+    },
+    {
+      "name": "golferSecondName",
+      "type": "string",
+      "label": "GolferSecondName"
+    },
+    {
+      "name": "golferImageUrl",
+      "type": "string",
+      "label": "ImageUrl"
+    },
+    {
+      "name": "golferNationality",
+      "type": "string",
+      "label": "Nationality"
+    },
+    {
+      "name": "oddsToOne",
+      "type": "number",
+      "label": "Odds"
+    },
+    {
+      "name": "tournamentPosition",
+      "type": "number",
+      "label": "Position"
+    },
+    {
+      "name": "finalScore",
+      "type": "number",
+      "label": "Score"
+    },
+    {
+      "name": "pickedById",
+      "type": "number",
+      "label": "pickedById"
+    },
+    {
+      "name": "pickedByUsername",
+      "type": "string",
+      "label": "Username"
+    },
+    {
+      "name": "isPicked",
+      "type": "boolean",
+      "label": "Is picked"
+    }
+  ]
+}

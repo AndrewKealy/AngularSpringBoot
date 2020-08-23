@@ -4,7 +4,7 @@
 </ol>
 <div class="card">
   <div class="card-body">
-    <h2 class="card-title">Your groups</h2>
+    <h2 class="card-title">Groups</h2>
 
 
 <div *ngIf="playerGroupList.length > 0">
@@ -16,17 +16,15 @@
 
           <th class="border-top-0" scope="col">Group name</th>
           <th class="border-top-0" scope="col">Max number of players</th>
-          <th class="border-top-0" scope="col">Has all members</th>
           <th class="border-top-0" scope="col">Group owner</th>
           <th class="border-top-0" scope="col">Is private</th>
           <th class="border-top-0" scope="col" style="width:120px"></th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let item of playerGroupList" [class.active]="item === selectedPlayerGroup">
-          <td><button (click)="newPlayerGroupId(item.playerGroupId.toString())" [routerLink]="['/userGroupses']" class="btn btn-info"  >{{item.groupName}}</button></td>
+      <tbody *ngFor="let item of playerGroupList" [class.active]="item === selectedPlayerGroup">
+        <tr *ngIf='item.isPrivate === false && href === "/playerGroupsAll"; else usersGroups'>
+          <td><button (click)="newPlayerGroupIdAndTotalMembers(item.playerGroupId.toString(), item.totalNumberOfPlayers)" [routerLink]="['/userGroupses']" class="btn btn-info"  >{{item.groupName}}</button></td>
           <td>{{item.totalNumberOfPlayers}}</td>
-          <td>{{item.hasAllMembers}}</td>
           <td>{{item.groupOwner}}</td>
           <div *ngIf="item.isPrivate === true; else none" >
             <td>&#10003;</td>
@@ -39,6 +37,24 @@
             <button (click)="delete(item)" class="btn btn-danger">Delete</button>
           </td>
         </tr>
+        <ng-template #usersGroups>
+          <tr *ngIf=' href === "/playerGroups"'>
+            <td><button (click)="newPlayerGroupIdAndTotalMembers(item.playerGroupId.toString(), item.totalNumberOfPlayers)" [routerLink]="['/userGroupses']" class="btn btn-info"  >{{item.groupName}}</button></td>
+            <td>{{item.totalNumberOfPlayers}}</td>
+            <td>{{item.groupOwner}}</td>
+            <div *ngIf="item.isPrivate === true; else none" >
+              <td>&#10003;</td>
+            </div>
+            <ng-template #none >
+              <td>&#10007;</td>
+            </ng-template >
+            <td  *ngIf="item.groupOwner === userName;" style="white-space: nowrap">
+              <a [routerLink]="['../playerGroups', item.playerGroupId ]" class="btn btn-secondary">Edit</a>&nbsp;
+              <button (click)="delete(item)" class="btn btn-danger">Delete</button>
+            </td>
+          </tr>
+        </ng-template>
+
       </tbody>
     </table>
   </div>

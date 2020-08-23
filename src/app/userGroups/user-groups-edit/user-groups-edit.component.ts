@@ -6,6 +6,9 @@ import { UserGroups } from '../user-groups';
 import { UserGroupsId} from '../user-groups-id';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import {OktaAuthService} from '@okta/okta-angular';
+import {PlayerGroup} from '../../playerGroup/player-group';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'app-user-groups-edit',
@@ -17,23 +20,36 @@ export class UserGroupsEditComponent implements OnInit {
   userGroups: UserGroups;
   feedback: any = {};
   private userGroupsId: UserGroupsId;
+  private groupId: number;
+  private userNameForNewUserGroups: string;
+
+
 
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userGroupsService: UserGroupsService) {
+    private userGroupsService: UserGroupsService,
+    private oktaAuthService: OktaAuthService,
+    private sharedService: SharedService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.sharedService.sharedGroupId.subscribe(groupId => this.groupId = groupId);
+    const userClaims = await this.oktaAuthService.getUser();
+    this.userNameForNewUserGroups = userClaims.preferred_username;
+
     this
       .route
       .params
       .pipe(
         map(p => p.id),
         switchMap(id => {
-          if (id === 'new') { this.userGroupsId = new UserGroupsId();
-                              return of(new UserGroups(this.userGroupsId)); }
+          if (id === 'new') {this.userGroupsId = new UserGroupsId();
+                             this.userGroupsId.playerGroupIdEnrolled = this.groupId;
+                             this.userGroups = new UserGroups(this.userGroupsId);
+                             this.userGroups.golfUserName = this.userNameForNewUserGroups;
+                             return of(this.userGroups); }
           return this.userGroupsService.findById(id);
         })
       )
@@ -49,7 +65,6 @@ export class UserGroupsEditComponent implements OnInit {
 
 
   save() {
-    console.log('yyy' + this .userGroups.isOwner);
     this.userGroupsService.save(this.userGroups).subscribe(
       userGroups => {
         this.userGroups = userGroups;
