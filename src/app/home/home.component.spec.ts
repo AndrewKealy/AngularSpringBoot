@@ -7,10 +7,10 @@ describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   const oktaConfig = {
-    issuer: 'https://not-real.okta.com',
-    clientId: 'fake-client-id',
-    redirectUri: 'http://localhost:4200'
-  };
+    issuer: 'https://dev-625433.okta.com',
+    clientId: '0oaoom7waz6zj0qFK4x6',
+    redirectUri: 'http://localhost:4200'};
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

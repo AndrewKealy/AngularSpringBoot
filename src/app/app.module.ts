@@ -12,9 +12,6 @@ import { TournamentGroupModule } from './tournamentGroup/tournament-group.module
 
 
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent

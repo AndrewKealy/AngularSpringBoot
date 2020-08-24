@@ -4,7 +4,7 @@ import { TournamentGroupService } from '../tournament-group.service';
 import { TournamentGroup } from '../tournament-group';
 import { SharedService } from '../../shared/shared.service';
 import {OktaAuthService} from '@okta/okta-angular';
-import {map} from 'rxjs/operators';
+
 
 
 @Component({

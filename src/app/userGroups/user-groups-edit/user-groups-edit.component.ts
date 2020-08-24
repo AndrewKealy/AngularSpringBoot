@@ -7,7 +7,6 @@ import { UserGroupsId} from '../user-groups-id';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import {OktaAuthService} from '@okta/okta-angular';
-import {PlayerGroup} from '../../playerGroup/player-group';
 import {SharedService} from '../../shared/shared.service';
 
 @Component({
@@ -38,6 +37,7 @@ export class UserGroupsEditComponent implements OnInit {
     this.sharedService.sharedGroupId.subscribe(groupId => this.groupId = groupId);
     const userClaims = await this.oktaAuthService.getUser();
     this.userNameForNewUserGroups = userClaims.preferred_username;
+    console.log(this.userNameForNewUserGroups);
 
     this
       .route

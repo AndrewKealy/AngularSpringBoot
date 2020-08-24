@@ -5,10 +5,9 @@ import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
 
 describe('AppComponent', () => {
   const oktaConfig = {
-    issuer: 'https://not-real.okta.com',
-    clientId: 'fake-client-id',
-    redirectUri: 'http://localhost:4200'
-  };
+    issuer: 'https://dev-625433.okta.com',
+    clientId: '0oaoom7waz6zj0qFK4x6',
+    redirectUri: 'http://localhost:4200'};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,16 +28,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'golfStarsAngular'`, () => {
+  it(`should have as title 'Golf Stars'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('golfStarsAngular');
+    expect(app.title).toEqual('Golf Stars');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.h1').textContent).toContain('golfStarsAngular app is running!');
-  });
 });

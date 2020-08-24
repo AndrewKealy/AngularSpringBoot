@@ -3,7 +3,7 @@ import { PlayerGroupFilter } from './player-group-filter';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import {UserGroupsService} from '../userGroups/user-groups.service';
+
 
 
 const headers = new HttpHeaders().set('Accept', 'application/json');
@@ -13,7 +13,7 @@ export class PlayerGroupService {
   playerGroupList: PlayerGroup[] = [];
   api = 'http://localhost:8080/api/playerGroups';
 
-  constructor(private http: HttpClient, private userGroupsService: UserGroupsService) {
+  constructor(private http: HttpClient) {
   }
 
   findById(id: string): Observable<PlayerGroup> {
